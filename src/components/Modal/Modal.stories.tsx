@@ -14,8 +14,11 @@ export const Default = () => {
       <Button type="button" onClick={show}>
         Open Modal
       </Button>
-      <Modal visible={visible} onBackdropClick={hide}>
+      <Modal in={visible} onBackdropClick={hide}>
         <h1 className="text-5xl">Hola Tido My Name is Hakuna</h1>
+        <Button type="button" onClick={hide}>
+          Close
+        </Button>
       </Modal>
     </>
   );

@@ -5,8 +5,10 @@ export interface Theme {
   timeout: number;
 }
 
+export const defaultTimeout = 200;
+
 const DEFAULT_THEME: Theme = {
-  timeout: 200,
+  timeout: defaultTimeout,
 };
 
 export function useTheme(): Theme {

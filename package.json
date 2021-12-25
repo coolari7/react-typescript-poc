@@ -4,8 +4,6 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.1",
-    "@emotion/react": "^11.7.0",
-    "@emotion/styled": "^11.6.0",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -33,6 +31,9 @@
       "react-app",
       "react-app/jest"
     ],
+    "globals": {
+      "JSX": true
+    },
     "overrides": [
       {
         "files": [

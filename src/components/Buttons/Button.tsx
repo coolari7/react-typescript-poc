@@ -29,7 +29,11 @@ export function Button({
 }
 
 function getButtonClasses(variant: Variant, classes?: string): string {
-  const classNames = [
+  const classNames = [];
+
+  classes && classNames.push(classes);
+
+  classNames.push(
     "p-2",
     "border",
     "rounded-sm",
@@ -37,8 +41,8 @@ function getButtonClasses(variant: Variant, classes?: string): string {
     `border-${COLORS[variant]}`,
     `text-${COLORS[variant]}`,
     `hover:bg-${COLORS[variant]}`,
-    "hover:text-white",
-  ];
-  classes && classNames.push(classes);
+    "hover:text-white"
+  );
+
   return classNames.join(" ");
 }

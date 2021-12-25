@@ -4,7 +4,7 @@ import { MakeRequired } from "../../types/helpers/MakeRequired";
 
 export interface InputProps
   extends MakeRequired<
-    Omit<React.HTMLAttributes<HTMLInputElement>, "onChange"> &
+    Exclude<React.HTMLAttributes<HTMLInputElement>, "onChange"> &
       React.InputHTMLAttributes<HTMLInputElement>,
     "value" | "onChange"
   > {

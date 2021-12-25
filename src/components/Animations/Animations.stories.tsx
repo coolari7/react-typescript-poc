@@ -1,13 +1,13 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { Scale } from "./Scale";
+import { Scale as ScaleComponent } from "./Scale";
+import { Fade as FadeComponent } from "./Fade";
 import { Button } from "../Buttons/Button";
 import { useToggle } from "../../hooks/useToggle";
-import { Fade, Base } from "./Fade";
 
 export default { title: "Components/Animations" } as Meta;
 
-export const ScaleAnimation = () => {
+export const Scale = () => {
   const { visible, toggle } = useToggle(false);
 
   return (
@@ -15,43 +15,27 @@ export const ScaleAnimation = () => {
       <Button type="button" onClick={toggle}>
         Scale
       </Button>
-      <div className="flex justify-center mt-2">
-        <Scale in={visible} scale={0}>
+      <div className="flex justify-start mt-2">
+        <ScaleComponent in={visible} scale={0} unmountOnExit>
           <div className="w-24 h-24 bg-red-400"></div>
-        </Scale>
+        </ScaleComponent>
       </div>
     </>
   );
 };
 
-export const FadeAnimation = () => {
+export const Fade = () => {
   const { visible, toggle } = useToggle(false);
-
-  const H1 = ({
-    className,
-    children,
-    ...rest
-  }: {
-    className: string;
-    children: string;
-  }) => (
-    <h1 {...rest} className={className}>
-      {children}
-    </h1>
-  );
 
   return (
     <>
       <Button type="button" onClick={toggle}>
-        Fade
+        {visible ? "Fade Out" : "Fade In"}
       </Button>
-      <Base in={visible} timeout={200}>
-        <H1 className="text-3xl text-red-300">Hola</H1>
-      </Base>
-      <div className="flex justify-center mt-2">
-        <Fade visible={visible}>
+      <div className="flex justify-start mt-2">
+        <FadeComponent in={visible} unmountOnExit>
           <div className="w-24 h-24 bg-red-400"></div>
-        </Fade>
+        </FadeComponent>
       </div>
     </>
   );
