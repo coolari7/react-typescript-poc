@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { OptionShape, Select as SelectComponent } from "./Select";
+import { Select as SelectComponent } from "./Select";
+import { OptionShape } from "./SelectContext";
 
 export default {
   component: SelectComponent,
@@ -36,7 +37,7 @@ export const Select = () => {
   }, [value]);
 
   return (
-    <div className="mt-32" style={{ height: "1000px" }}>
+    <div style={{ height: "1000px", marginTop: "500px" }}>
       <SelectComponent value={value} options={options} onChange={setValue} />
       <p>
         Block content for testing{" "}

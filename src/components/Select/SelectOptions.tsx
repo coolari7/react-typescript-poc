@@ -4,26 +4,18 @@ import { useModal } from "../Modal/useModal";
 import { Overlay } from "../Overlay/Overlay";
 import { useOverlay } from "../Overlay/useOverlay";
 import { useTheme } from "../useTheme";
-import { SelectProps, SelectRef } from "./Select";
+import { SelectProps } from "./Select";
+import { useSelectContext } from "./SelectContext";
 import { SelectOption } from "./SelectOption";
 
 export type SelectOptionsProps<T> = Pick<
   SelectProps<T>,
   "options" | "onChange"
-> &
-  SelectRef & {
-    in: boolean;
-    onOptionsClick(): void;
-  };
+>;
 export function SelectOptions<T>(props: SelectOptionsProps<T>) {
   const theme = useTheme();
-  const {
-    options = [],
-    in: inProp = false,
-    onChange: onOptionChange,
-    onOptionsClick,
-    controlRef,
-  } = props;
+  const { onChange: onOptionChange, options = [] } = props;
+  const { controlRef, toggle, visible: inProp } = useSelectContext();
   const { overlayVisible, hideOverlay } = useOverlay(inProp);
   const { modalVisible } = useModal(inProp, overlayVisible);
 
@@ -52,7 +44,7 @@ export function SelectOptions<T>(props: SelectOptionsProps<T>) {
   ));
 
   return (
-    <Overlay visible={overlayVisible} onOverlayClick={onOptionsClick}>
+    <Overlay visible={overlayVisible} onOverlayClick={toggle}>
       <Animate
         in={modalVisible}
         onExited={hideOverlay}

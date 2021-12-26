@@ -1,12 +1,10 @@
 import React from "react";
-import { OptionShape, SelectRef } from "./Select";
+import { OptionShape, useSelectContext } from "./SelectContext";
 
-export type SelectControlProps<T> = Pick<OptionShape<T>, "label"> &
-  SelectRef & {
-    onControlClick(e: React.MouseEvent<HTMLButtonElement>): void;
-  };
+export type SelectControlProps<T> = Pick<OptionShape<T>, "label">;
 export function SelectControl<T>(props: SelectControlProps<T>) {
-  const { label = "", onControlClick, controlRef } = props;
+  const { label = "" } = props;
+  const { controlRef, toggle } = useSelectContext();
 
   return (
     <button
@@ -14,7 +12,7 @@ export function SelectControl<T>(props: SelectControlProps<T>) {
       type="button"
       aria-haspopup="listbox"
       className="p-2 border border-blue-500 text-sm text-gray-700 cursor-pointer text-left"
-      onClick={onControlClick}
+      onClick={toggle}
       style={{ minWidth: "120px" }}
     >
       {label}

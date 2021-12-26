@@ -1,5 +1,6 @@
 import React from "react";
-import { OptionShape, SelectProps } from "./Select";
+import { SelectProps } from "./Select";
+import { OptionShape } from "./SelectContext";
 
 export type SelectOptionProps<T> = Pick<SelectProps<T>, "onChange"> & {
   option: OptionShape<T>;
