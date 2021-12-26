@@ -13,16 +13,16 @@ export function useModal(
   );
 
   React.useLayoutEffect(() => {
-    if (!visible && modalVisible) {
-      hideModal();
-    }
-  }, [visible]);
-
-  React.useLayoutEffect(() => {
     if (visible && !modalVisible) {
       showModal();
     }
   }, [overlayVisible]);
+
+  React.useLayoutEffect(() => {
+    if (!visible && modalVisible) {
+      hideModal();
+    }
+  }, [visible]);
 
   return { modalVisible };
 }

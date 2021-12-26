@@ -1,12 +1,12 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { Modal } from "./Modal";
+import { Modal as ModalComponent } from "./Modal";
 import { Button } from "../Buttons/Button";
 import { useToggle } from "../../hooks/useToggle";
 
-export default { component: Modal, title: "Components/Modal" } as Meta;
+export default { component: ModalComponent, title: "Components/Modal" } as Meta;
 
-export const Default = () => {
+export const Modal = () => {
   const { visible, show, hide } = useToggle(false);
 
   return (
@@ -14,12 +14,12 @@ export const Default = () => {
       <Button type="button" onClick={show}>
         Open Modal
       </Button>
-      <Modal in={visible} onBackdropClick={hide}>
+      <ModalComponent in={visible} onBackdropClick={hide}>
         <h1 className="text-5xl">Hola Tido My Name is Hakuna</h1>
         <Button type="button" onClick={hide}>
           Close
         </Button>
-      </Modal>
+      </ModalComponent>
     </>
   );
 };

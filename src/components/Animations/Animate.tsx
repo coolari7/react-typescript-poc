@@ -1,15 +1,37 @@
 import React from "react";
 import { useTheme } from "../useTheme";
 import Transition, {
-  TransitionProps,
+  TransitionProps as _TransitionProps,
   TransitionStatus,
 } from "react-transition-group/Transition";
 import { triggerReflow } from "../triggerReflow";
 
-export type AnimateTransitionProps = Partial<TransitionProps>;
+type _TransitionEventHandlers =
+  | "onEnter"
+  | "onEntering"
+  | "onEntered"
+  | "onExit"
+  | "onExiting"
+  | "onExited";
+type _TransitionRegulars =
+  | "in"
+  | "mountOnEnter"
+  | "unmountOnExit"
+  | "timeout"
+  | "addEndListener"
+  | "children";
+
+export type TransitionEventHandlers = Pick<
+  _TransitionProps,
+  _TransitionEventHandlers
+>;
+export type TransitionRegulars = Pick<_TransitionProps, _TransitionRegulars>;
+
+export type AnimateTransitionProps = TransitionEventHandlers &
+  TransitionRegulars;
 export type AnimateStylesProps = {
-  defaultStyles: Partial<CSSStyleDeclaration>;
-  transitionStyles: Partial<
+  defaultStyles?: Partial<CSSStyleDeclaration>;
+  transitionStyles?: Partial<
     Record<TransitionStatus, Partial<CSSStyleDeclaration>>
   >;
 };

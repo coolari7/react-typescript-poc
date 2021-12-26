@@ -6,6 +6,7 @@ import { Overlay } from "../Overlay/Overlay";
 import { useBackdrop } from "../Backdrop/useBackdrop";
 import { useModal } from "./useModal";
 import { ModalContent } from "./ModalContent";
+import { useOverlay } from "../Overlay/useOverlay";
 
 export type ModalProps = BackdropOwnProps & { in: boolean } & {
   backdropTransitionProps?: AnimateTransitionProps;
@@ -20,7 +21,8 @@ export function Modal(props: ModalProps) {
     modalTransitionProps,
   } = props;
 
-  const { overlayVisible, backdropVisible, hideOverlay } = useBackdrop(inProp);
+  const { overlayVisible, hideOverlay } = useOverlay(inProp);
+  const { backdropVisible } = useBackdrop(inProp, overlayVisible);
   const { modalVisible } = useModal(inProp, overlayVisible);
 
   return (

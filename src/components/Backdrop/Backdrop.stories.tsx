@@ -1,12 +1,15 @@
 import React from "react";
 import { Meta } from "@storybook/react";
-import { Backdrop } from "./Backdrop";
+import { Backdrop as BackdropComponent } from "./Backdrop";
 import { Button } from "../Buttons/Button";
 import { useToggle } from "../../hooks/useToggle";
 
-export default { component: Backdrop, title: "Components/Backdrop" } as Meta;
+export default {
+  component: BackdropComponent,
+  title: "Components/Backdrop",
+} as Meta;
 
-export const Default = () => {
+export const Backdrop = () => {
   const { visible, show, hide } = useToggle(false);
 
   return (
@@ -14,9 +17,9 @@ export const Default = () => {
       <Button type="button" onClick={show}>
         Show Backdrop
       </Button>
-      <Backdrop in={visible} onBackdropClick={hide}>
+      <BackdropComponent in={visible} onBackdropClick={hide}>
         Hola
-      </Backdrop>
+      </BackdropComponent>
     </>
   );
 };
