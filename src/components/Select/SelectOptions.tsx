@@ -1,47 +1,52 @@
 import React from "react";
+import { classnames } from "../../utils/classnames";
 import { Animate } from "../Animations/Animate";
 import { useModal } from "../Modal/useModal";
 import { Overlay } from "../Overlay/Overlay";
 import { useOverlay } from "../Overlay/useOverlay";
 import { useTheme } from "../useTheme";
-import { SelectProps } from "./Select";
 import { useSelectContext } from "./SelectContext";
-import { SelectOption } from "./SelectOption";
 
-export type SelectOptionsProps<T> = Pick<
-  SelectProps<T>,
-  "options" | "onChange"
->;
-export function SelectOptions<T>(props: SelectOptionsProps<T>) {
+export type SelectOptionsProps = {
+  children: React.ReactNode;
+  tag?: keyof JSX.IntrinsicElements;
+  className?: string;
+  style?: React.CSSProperties;
+  [key: string]: any;
+};
+export function SelectOptions(props: SelectOptionsProps) {
   const theme = useTheme();
-  const { onChange: onOptionChange, options = [] } = props;
+  const {
+    children,
+    tag: Component = "ul",
+    className = "",
+    style = {},
+    ...rest
+  } = props;
   const { controlRef, toggle, visible: inProp } = useSelectContext();
   const { overlayVisible, hideOverlay } = useOverlay(inProp);
   const { modalVisible } = useModal(inProp, overlayVisible);
 
   const getStyles = React.useCallback((): React.CSSProperties => {
+    let styles: React.CSSProperties = {
+      minWidth: "120px",
+      position: "absolute",
+    };
     if (controlRef.current) {
       const {
         bottom,
         left,
         width,
       } = controlRef.current.getBoundingClientRect();
-      return {
+      styles = {
         top: `${bottom}px`,
         left: `${left}px`,
         width: `${width}px`,
+        ...styles,
       };
     }
-    return {};
+    return styles;
   }, [controlRef.current]);
-
-  const mappedOptions = options.map((option) => (
-    <SelectOption
-      option={option}
-      onChange={onOptionChange}
-      key={option.label}
-    />
-  ));
 
   return (
     <Overlay visible={overlayVisible} onOverlayClick={toggle}>
@@ -66,13 +71,20 @@ export function SelectOptions<T>(props: SelectOptionsProps<T>) {
           },
         }}
       >
-        <ul
-          style={getStyles()}
+        <Component
+          style={{
+            ...style,
+            ...getStyles(),
+          }}
+          className={classnames(
+            { "shadow-lg bg-white max-h-52 overflow-auto": className === "" },
+            className
+          )}
+          {...rest}
           role="listbox"
-          className="shadow-lg absolute w-full bg-white max-h-52 overflow-auto"
         >
-          {mappedOptions}
-        </ul>
+          {children}
+        </Component>
       </Animate>
     </Overlay>
   );

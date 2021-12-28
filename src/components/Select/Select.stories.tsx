@@ -32,13 +32,13 @@ const options: OptionShape<User>[] = [
 export const Select = () => {
   const [value, setValue] = React.useState<OptionShape<User>>(options[0]);
 
-  React.useEffect(() => {
-    console.log(value);
-  }, [value]);
-
   return (
     <div style={{ height: "1000px", marginTop: "500px" }}>
-      <SelectComponent value={value} options={options} onChange={setValue} />
+      <SelectComponent
+        value={value}
+        options={options}
+        onOptionChange={setValue}
+      />
       <p>
         Block content for testing{" "}
         <span className="hover:text-red-500">positioning</span>

@@ -1,4 +1,4 @@
-import React, { RefObject, useContext } from "react";
+import React, { PropsWithChildren, RefObject, useContext } from "react";
 import { useScrollLock } from "../../hooks/useScrollLock";
 import { useToggle, useToggleProps } from "../../hooks/useToggle";
 import { noop } from "../../utils/noop";
@@ -7,28 +7,26 @@ import { noop } from "../../utils/noop";
  * React.forwardRef can't work with generic proptypes.
  * see https://stackoverflow.com/a/58473012
  */
-export type SelectRef<T extends HTMLElement = HTMLButtonElement> = {
+export type MenuRef<T extends HTMLElement = HTMLButtonElement> = {
   controlRef: RefObject<T>;
 };
 export interface OptionShape<T> {
   label: string;
   value: T;
 }
-export type SelectContextProps = SelectRef &
+
+// Context
+export type MenuContextProps = MenuRef &
   Pick<useToggleProps, "visible" | "toggle">;
 
-const defaultContext: SelectContextProps = {
+const defaultContext: MenuContextProps = {
   controlRef: { current: null },
   visible: false,
   toggle: noop,
 };
+const MenuContext = React.createContext<MenuContextProps>(defaultContext);
 
-const SelectContext = React.createContext<SelectContextProps>(defaultContext);
-
-type SelectProviderProps = {
-  children: React.ReactNode;
-};
-export const SelectContainer = (props: SelectProviderProps) => {
+export const Menu = (props: PropsWithChildren<{}>) => {
   const { children } = props;
   const { visible, toggle } = useToggle();
   const { lock, unlock } = useScrollLock();
@@ -46,15 +44,13 @@ export const SelectContainer = (props: SelectProviderProps) => {
     (visible ? lock : unlock)();
   }, [visible]);
 
-  return (
-    <SelectContext.Provider value={value}>{children}</SelectContext.Provider>
-  );
+  return <MenuContext.Provider value={value}>{children}</MenuContext.Provider>;
 };
 
-export function useSelectContext() {
-  const context = useContext(SelectContext);
+export function useMenuContext() {
+  const context = useContext(MenuContext);
   if (!context) {
-    throw "'useSelectContext' can only be used within SelectContextProvider";
+    throw "'useMenuContext' can only be used within MenuContextProvider";
   }
   return context;
 }
