@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react";
-import { classnames } from "../../utils/classnames";
+import React, { ElementType, PropsWithChildren } from "react";
+import { Polymorph } from "../../types/helpers/Polymorph";
 import { Animate, AnimateStylesProps } from "../Animations/Animate";
 import { useModal } from "../Modal/useModal";
 import { Overlay } from "../Overlay/Overlay";
@@ -24,22 +24,22 @@ const defaultMenuTransitionStyles: AnimateStylesProps["transitionStyles"] = {
   },
 };
 
-export type MenuOptionsProp = PropsWithChildren<
-  AnimateStylesProps & {
-    as?: keyof JSX.IntrinsicElements;
-    transitionProperties?: string[];
-    style?: React.CSSProperties;
-    [key: string]: any;
-  }
+export type MenuOptionsProp<E extends ElementType> = Polymorph<
+  PropsWithChildren<
+    AnimateStylesProps & {
+      transitionProperties?: string[];
+      style?: React.CSSProperties;
+    }
+  >,
+  E
 >;
-export function MenuOptions(props: MenuOptionsProp) {
+export function MenuOptions<E extends ElementType>(props: MenuOptionsProp<E>) {
   const theme = useTheme();
   const {
-    children,
-    as: Component = "ul",
     style = {},
-    defaultStyles = defaultMenuStyles,
-    transitionStyles = defaultMenuTransitionStyles,
+    as: Component = "ul",
+    defaultStyles = {},
+    transitionStyles = {},
     transitionProperties = ["opacity", "transform"],
     ...rest
   } = props;
@@ -93,9 +93,7 @@ export function MenuOptions(props: MenuOptionsProp) {
             ...style,
             ...getStyles(),
           }}
-        >
-          {children}
-        </Component>
+        />
       </Animate>
     </Overlay>
   );

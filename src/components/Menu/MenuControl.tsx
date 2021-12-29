@@ -1,19 +1,19 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, ElementType } from "react";
+import { Polymorph } from "../../types/helpers/Polymorph";
 import { useMenuContext } from "./Menu";
 
-export type MenuControlProps = {
-  children: React.ReactElement;
-};
-/**
- * onClick() of 'children' will be used to trigger open/close
- */
-export function MenuControl(props: PropsWithChildren<{}>) {
-  const { children } = props;
+export function MenuControl<E extends ElementType>(
+  props: Polymorph<PropsWithChildren<{}>, E, "onClick" | "ref">
+) {
+  const { as: Component = "button", ...rest } = props;
   const { controlRef, toggle } = useMenuContext();
 
-  return React.cloneElement(children as React.ReactElement, {
-    ref: controlRef,
-    "aria-haspopup": "listbox",
-    onClick: toggle,
-  });
+  return (
+    <Component
+      aria-haspopup="listbox"
+      {...rest}
+      onClick={toggle}
+      ref={controlRef}
+    />
+  );
 }

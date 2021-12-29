@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta } from "@storybook/react";
 import { Select as SelectComponent } from "./Select";
-import { OptionShape } from "./SelectContext";
+import { OptionShape } from "../Menu/Menu";
 
 export default {
   component: SelectComponent,
