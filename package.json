@@ -24,7 +24,8 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build:storybook": "build-storybook",
+    "build:css": "cross-env NODE_ENV=production npx tailwindcss build -o src/tailwind.css -c tailwind.config.js"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +67,7 @@
     "@storybook/react": "^6.3.12",
     "@types/react-transition-group": "^4.4.4",
     "autoprefixer": "^9.8.8",
+    "cross-env": "^7.0.3",
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }

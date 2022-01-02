@@ -29,6 +29,7 @@ export const Menu = () => {
             className="block p-2 text-sm text-gray-700 hover:bg-gray-200"
             href="https://www.google.com"
             target="_blank"
+            rel="noreferrer"
           >
             Google
           </a>

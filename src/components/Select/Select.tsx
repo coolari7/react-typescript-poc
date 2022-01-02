@@ -14,7 +14,14 @@ export function Select<T>(props: SelectProps<T>) {
   const { options = [], value, onOptionChange } = props;
 
   const mappedOptions = options.map((option, index) => (
-    <SelectOption option={option} onOptionChange={onOptionChange} key={index} />
+    <SelectOption
+      option={option}
+      onOptionChange={onOptionChange}
+      key={index}
+      className="p-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
+      role="option"
+      aria-selected={value.label === option.label}
+    />
   ));
 
   return (

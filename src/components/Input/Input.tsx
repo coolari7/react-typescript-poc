@@ -1,5 +1,4 @@
 import React from "react";
-import { COLORS } from "../../consts/colors";
 import { MakeRequired } from "../../types/helpers/MakeRequired";
 
 export interface InputProps
@@ -19,15 +18,12 @@ export function Input({ value, onChange, invalid, ...props }: InputProps) {
 }
 
 function getInputClasses(invalid: boolean, className?: string): string {
-  const classes = [
-    "p-2",
-    "outline-none",
-    "border",
-    `border-${invalid ? COLORS["danger"] : COLORS["standard"]}`,
-    "block",
-    "w-full",
-    `focus:border-${invalid ? COLORS["danger"] : COLORS["info"]}`,
-  ];
+  const classes = ["p-2", "outline-none", "border", "block", "w-full"];
+  classes.push(
+    invalid
+      ? "border-red-500 focus:border-red-500"
+      : "border-gray-200 focus:border-blue-500"
+  );
   className && classes.push(className);
   return classes.join(" ");
 }

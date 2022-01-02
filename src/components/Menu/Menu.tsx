@@ -50,7 +50,9 @@ export const Menu = (props: PropsWithChildren<{}>) => {
 export function useMenuContext() {
   const context = useContext(MenuContext);
   if (!context) {
-    throw "'useMenuContext' can only be used within MenuContextProvider";
+    throw new Error(
+      "'useMenuContext' can only be used within MenuContextProvider"
+    );
   }
   return context;
 }

@@ -1,26 +1,34 @@
-import React from "react";
+import React, { ElementType } from "react";
 import { noop } from "../../utils/noop";
 import { SelectProps } from "./Select";
 import { OptionShape } from "../Menu/Menu";
+import { Polymorph } from "../../types/helpers/Polymorph";
 
-export type SelectOptionProps<T> = Pick<SelectProps<T>, "onOptionChange"> & {
-  option: OptionShape<T>;
-};
-
-export function SelectOption<T>(props: SelectOptionProps<T>) {
-  const { option, onOptionChange: _onChange } = props;
+export type SelectOptionProps<T, E extends ElementType> = Polymorph<
+  Pick<SelectProps<T>, "onOptionChange"> & {
+    option: OptionShape<T>;
+  },
+  E,
+  "onClick"
+>;
+const defaultElement = "li";
+export function SelectOption<T, E extends ElementType = typeof defaultElement>(
+  props: SelectOptionProps<T, E>
+) {
+  const {
+    option,
+    onOptionChange: _onChange,
+    as: Component = defaultElement,
+    ...rest
+  } = props;
   const onOptionChange = React.useCallback(
     _onChange ? () => _onChange(option) : noop,
     []
   );
 
   return (
-    <li
-      className="p-2 text-sm text-gray-700 hover:bg-gray-200 cursor-pointer"
-      onClick={onOptionChange}
-      role="option"
-    >
+    <Component {...rest} onClick={onOptionChange} role="option">
       {option.label}
-    </li>
+    </Component>
   );
 }

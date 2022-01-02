@@ -48,11 +48,11 @@ export const Animate = (props: AnimateProps) => {
     ...rest
   } = props;
 
-  if (!props.children) throw "'children' is required!";
+  if (!props.children) throw new Error("'children' is required!");
   if (typeof props.children === "function")
-    throw "'children' must be of type JSX.Element!";
+    throw new Error("'children' must be of type JSX.Element!");
   if (React.Children.count(props.children) > 1)
-    throw "Multiple root level 'children' aren't allowed!";
+    throw new Error("Multiple root level 'children' aren't allowed!");
   const children = props.children as React.ReactElement;
 
   const handleEnter = React.useCallback(

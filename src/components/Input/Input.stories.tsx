@@ -1,15 +1,11 @@
 import React from "react";
-import { Story, Meta } from "@storybook/react";
-import { Input, InputProps } from "./Input";
+import { Meta } from "@storybook/react";
+import { Input } from "./Input";
 
 export default {
   component: Input,
   title: "Components/Input",
 } as Meta;
-
-const Template: Story<InputProps> = ({ value, onChange, ...args }) => (
-  <Input value={value} onChange={onChange} {...args} />
-);
 
 export const Plain = () => {
   const [value, setValue] = React.useState("Buy apples");
