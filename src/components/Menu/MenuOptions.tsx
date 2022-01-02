@@ -1,4 +1,5 @@
 import React, { ElementType, PropsWithChildren } from "react";
+import { GetHTMLElement } from "../../types/helpers/GetHTMLElement";
 import { Polymorph } from "../../types/helpers/Polymorph";
 import { Animate, AnimateStylesProps } from "../Animations/Animate";
 import { useModal } from "../Modal/useModal";
@@ -10,7 +11,6 @@ import { useMenuContext } from "./Menu";
 const defaultMenuStyles: AnimateStylesProps["defaultStyles"] = {
   transform: `scaleY(0)`,
   opacity: "0",
-  transformOrigin: "50% 0",
   transitionTimingFunction: "ease",
 };
 const defaultMenuTransitionStyles: AnimateStylesProps["transitionStyles"] = {
@@ -33,16 +33,23 @@ export type MenuOptionsProp<E extends ElementType> = Polymorph<
   >,
   E
 >;
-export function MenuOptions<E extends ElementType>(props: MenuOptionsProp<E>) {
+const defaultElement = "ul";
+export function MenuOptions<E extends ElementType = typeof defaultElement>(
+  props: MenuOptionsProp<E>
+) {
   const theme = useTheme();
   const {
     style = {},
-    as: Component = "ul",
+    as: Component = defaultElement,
     defaultStyles = {},
     transitionStyles = {},
     transitionProperties = ["opacity", "transform"],
     ...rest
   } = props;
+  const componentRef = React.useRef<GetHTMLElement<typeof defaultElement>>(
+    null
+  );
+  const [styles, setStyles] = React.useState<React.CSSProperties>({});
   const { controlRef, toggle, visible: inProp } = useMenuContext();
   const { overlayVisible, hideOverlay } = useOverlay(inProp);
   const { modalVisible } = useModal(inProp, overlayVisible);
@@ -57,20 +64,34 @@ export function MenuOptions<E extends ElementType>(props: MenuOptionsProp<E>) {
       const {
         bottom,
         left,
+        top,
         width,
       } = controlRef.current.getBoundingClientRect();
-      styles = {
-        top: `${bottom}px`,
-        left: `${left}px`,
-        width: `${width}px`,
-        ...styles,
-      };
+      const { offsetHeight = 0 } = componentRef.current ?? {};
+
+      if (top + offsetHeight > window.innerHeight) {
+        // Menu on top
+        styles.top = `${top - offsetHeight}px`;
+        styles.transformOrigin = "50% 100%";
+      } else {
+        // Menu below
+        styles.top = `${bottom}px`;
+        styles.transformOrigin = "50% 0%";
+      }
+      styles.left = `${left}px`;
+      styles.width = `${width}px`;
     }
     return styles;
-  }, [controlRef.current]);
+  }, []);
   const transition = transitionProperties
     .map((key) => `${key} ${theme.timeout}ms`)
     .join(", ");
+
+  React.useLayoutEffect(() => {
+    if (modalVisible) {
+      setStyles(getStyles());
+    }
+  }, [modalVisible]);
 
   return (
     <Overlay visible={overlayVisible} onOverlayClick={toggle}>
@@ -89,9 +110,10 @@ export function MenuOptions<E extends ElementType>(props: MenuOptionsProp<E>) {
       >
         <Component
           {...rest}
+          ref={componentRef}
           style={{
             ...style,
-            ...getStyles(),
+            ...styles,
           }}
         />
       </Animate>

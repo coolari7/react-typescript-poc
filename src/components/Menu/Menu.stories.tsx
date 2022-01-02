@@ -11,14 +11,14 @@ export default {
 
 export const Menu = () => {
   return (
-    <div style={{ height: "1000px", marginTop: "500px" }}>
+    <div style={{ height: "1000px", marginTop: "700px" }}>
       <MenuComponent>
         <MenuControl>
           <span className="material-icons text-gray-400 cursor-pointer">
             more_vert
           </span>
         </MenuControl>
-        <MenuOptions className="shadow-lg bg-transparent max-h-52">
+        <MenuOptions className="bg-transparent max-h-52 border border-blue-500">
           <li
             className="p-2 text-sm text-gray-700 hover:bg-gray-200"
             onClick={() => console.log("Arijit")}
