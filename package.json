@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "lerna clean && lerna bootstrap --hoist",
-    "build:docs": "lerna run build:storybook --stream"
+    "prebuild:docs": "lerna bootstrap --scope=@reeyouz/ui",
+    "build:docs": "lerna run build:storybook --scope=@reeyouz/ui --stream"
   },
   "repository": {
     "type": "git",
