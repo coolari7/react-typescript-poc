@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild:docs": "lerna bootstrap --hoist && lerna add @reeyouz/hooks --scope=@reeyouz/ui",
-    "build:docs": "lerna run build:storybook --scope=@reeyouz/ui --stream"
+    "prebuild:docs": "lerna bootstrap --hoist",
+    "build:docs": "lerna run build:storybook --scope=@reeyouz/ui --stream",
+    "publish": "lerna publish"
   },
   "repository": {
     "type": "git",
