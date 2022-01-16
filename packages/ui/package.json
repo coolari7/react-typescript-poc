@@ -19,7 +19,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "clean": "rimraf dist",
-    "build:storybook": "build-storybook",
+    "build:storybook": "ts-node ../../scripts/build-storybook.ts",
     "prebuild": "npm run clean",
     "build": "ts-node ../../scripts/build.ts",
     "prepublishOnly": "npm run build"
