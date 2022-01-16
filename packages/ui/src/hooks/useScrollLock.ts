@@ -1,1 +1,1 @@
-export { useScrollLock } from "@thenamesarijit/hooks";
+export { useScrollLock } from "@reeyouz/hooks";

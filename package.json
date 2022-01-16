@@ -1,5 +1,5 @@
 {
-  "name": "thenamesarijit",
+  "name": "reeyouz",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coolari7/sns-test.git"
+    "url": "git+https://github.com/reeyouz/reeyouz"
   },
   "author": "Arijit Chowdhury",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/coolari7/sns-test/issues"
+    "url": "https://github.com/reeyouz/reeyouz/issues"
   },
-  "homepage": "https://github.com/coolari7/sns-test#readme",
+  "homepage": "https://github.com/reeyouz/reeyouz#readme",
   "devDependencies": {
     "@types/node": "^17.0.8",
     "lerna": "^4.0.0"

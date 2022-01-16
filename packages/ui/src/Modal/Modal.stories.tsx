@@ -15,10 +15,12 @@ export const Modal = () => {
         Open Modal
       </Button>
       <ModalComponent in={visible} onBackdropClick={hide}>
-        <h1 className="text-5xl">Hola Tido My Name is Hakuna</h1>
-        <Button type="button" onClick={hide}>
-          Close
-        </Button>
+        <div className="p-4">
+          <h1 className="text-5xl mb-6">Modal Content Here</h1>
+          <Button type="button" onClick={hide}>
+            Close
+          </Button>
+        </div>
       </ModalComponent>
     </>
   );

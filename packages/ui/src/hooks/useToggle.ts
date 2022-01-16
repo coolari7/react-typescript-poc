@@ -1,2 +1,2 @@
-export { useToggle } from "@thenamesarijit/hooks";
-export type { useToggleProps } from "@thenamesarijit/hooks";
+export { useToggle } from "@reeyouz/hooks";
+export type { useToggleProps } from "@reeyouz/hooks";
