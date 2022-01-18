@@ -1,6 +1,6 @@
 {
   "name": "@reeyouz/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "POC on packaging a React TS Component Library",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
