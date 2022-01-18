@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild:docs": "lerna bootstrap --hoist",
+    "postinstall": "npm run lerna:bootstrap",
+    "lerna:bootstrap": "lerna bootstrap --hoist",
+    "prebuild:docs": "npm run lerna:bootstrap",
     "build:docs": "lerna run build:storybook --scope=@reeyouz/ui --stream",
-    "publish": "lerna publish"
+    "publish": "lerna publish from-package --conventional-commits"
   },
   "repository": {
     "type": "git",
